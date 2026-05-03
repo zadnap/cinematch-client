@@ -35,8 +35,4 @@ export const signInUser = async ({ username, password }) => {
 export const signOutUser = () => {
   localStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');
-
-  if (window.location.pathname !== '/auth/sign-in') {
-    window.location.href = '/auth/sign-in';
-  }
 };

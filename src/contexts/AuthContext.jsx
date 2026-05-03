@@ -52,9 +52,7 @@ const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-
-      const res = await signUpUser(data);
-      return res;
+      await signUpUser(data);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -62,14 +60,22 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const signOut = async () => {
+  const signOut = () => {
     signOutUser();
     setUser(null);
   };
 
   const refreshUser = async () => {
-    const me = await getMe();
-    setUser(me);
+    try {
+      setLoading(true);
+      const me = await getMe();
+      setUser(me);
+    } catch (err) {
+      setUser(null);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

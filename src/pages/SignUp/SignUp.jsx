@@ -71,13 +71,13 @@ const SignUp = () => {
     });
 
     if (usernameError || passwordError || confirmError) return;
-    const res = await signUp(form);
 
-    if (res) {
-      navigate('/auth/sign-in', {
-        state: { message: 'Account created successfully, you can sign in now' },
-      });
-    }
+    await signUp(form);
+    navigate('/auth/sign-in', {
+      state: {
+        message: 'Account created successfully, you can sign in now',
+      },
+    });
   };
 
   const handleBlur = (e) => {

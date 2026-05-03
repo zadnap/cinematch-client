@@ -18,8 +18,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popup from '../Popup/Popup';
 import usePopup from '../../hooks/usePopup';
 import usePreviewTrailers from '../../hooks/usePreviewTrailers';
+import { useNavigate } from 'react-router-dom';
 
 function Navigation({ isOnTablet, isOpenNav, setIsOpenNav }) {
+  const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const { showPopup, hidePopup } = usePopup();
   const { trailers, loading, error } = usePreviewTrailers();
@@ -31,6 +33,7 @@ function Navigation({ isOnTablet, isOpenNav, setIsOpenNav }) {
       onConfirm: () => {
         signOut();
         hidePopup();
+        navigate('/auth');
       },
       onCancel: hidePopup,
     });

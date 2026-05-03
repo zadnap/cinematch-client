@@ -37,6 +37,7 @@ function Header({ isOpenNav, setIsOpenNav }) {
       onConfirm: () => {
         signOut();
         hidePopup();
+        navigate('/auth');
       },
       onCancel: hidePopup,
     });

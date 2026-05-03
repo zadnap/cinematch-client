@@ -9,8 +9,7 @@ export default function useOnboarding() {
     try {
       setLoading(true);
       setError(null);
-      const res = await onboard(genres, movies);
-      return res;
+      await onboard(genres, movies);
     } catch (err) {
       setError(err.message);
       return { success: false };

@@ -35,11 +35,8 @@ const Onboarding = () => {
   };
 
   const handleFinish = async () => {
-    const res = await submitOnboarding(selectedGenres, selectedMovies);
-    if (!res?.success) return;
-
+    await submitOnboarding(selectedGenres, selectedMovies);
     await refreshUser();
-
     navigate('/');
   };
 
