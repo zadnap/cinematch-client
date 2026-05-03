@@ -7,6 +7,11 @@ import styles from './SignUp.module.scss';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
 import Divider from '../../components/Divider/Divider';
+import {
+  validateUsername,
+  validatePassword,
+  validatePasswordMatch,
+} from '@/utils/validators';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -16,27 +21,56 @@ const SignUp = () => {
     password: '',
     passwordConfirmation: '',
   });
-  const isPasswordMatch = form.password === form.passwordConfirmation;
-  const formError = !isPasswordMatch ? 'Password does not match' : error;
-  const buttonDisabled =
-    !form.username ||
-    !form.password ||
-    !form.passwordConfirmation ||
-    loading ||
-    !isPasswordMatch;
+  const [errors, setErrors] = useState({
+    username: null,
+    password: null,
+    passwordConfirmation: null,
+  });
+  const [touched, setTouched] = useState({
+    username: false,
+    password: false,
+    passwordConfirmation: false,
+  });
 
   const handleChange = ({ target: { name, value } }) => {
     setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    let error = null;
+
+    if (name === 'username') error = validateUsername(value);
+    if (name === 'password') error = validatePassword(value);
+    if (name === 'passwordConfirmation') {
+      error =
+        form.password || value
+          ? validatePasswordMatch(form.password, value)
+          : null;
+    }
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const usernameError = validateUsername(form.username);
+    const passwordError = validatePassword(form.password);
+    const confirmError = validatePasswordMatch(
+      form.password,
+      form.passwordConfirmation
+    );
 
-    if (!isPasswordMatch) return;
+    setErrors({
+      username: usernameError,
+      password: passwordError,
+      passwordConfirmation: confirmError,
+    });
 
+    if (usernameError || passwordError || confirmError) return;
     const res = await signUp(form);
 
     if (res) {
@@ -46,9 +80,16 @@ const SignUp = () => {
     }
   };
 
+  const handleBlur = (e) => {
+    setTouched((prev) => ({
+      ...prev,
+      [e.target.name]: true,
+    }));
+  };
+
   return (
     <section className={styles.signUp}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={loading ? undefined : handleSubmit}>
         <p className={styles.brandName}>
           CineMatch
           <img className={styles.appLogo} src={logo} alt="" />
@@ -63,7 +104,11 @@ const SignUp = () => {
             placeholder="Username"
             type="text"
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {touched.username && errors.username && (
+            <p className={styles.error}>{errors.username}</p>
+          )}
         </div>
 
         <div className={styles.formField}>
@@ -74,7 +119,11 @@ const SignUp = () => {
             placeholder="Password"
             type="password"
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {touched.password && errors.password && (
+            <p className={styles.error}>{errors.password}</p>
+          )}
         </div>
 
         <div className={styles.formField}>
@@ -85,16 +134,28 @@ const SignUp = () => {
             placeholder="Confirm Password"
             type="password"
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {touched.passwordConfirmation && errors.passwordConfirmation && (
+            <p className={styles.error}>{errors.passwordConfirmation}</p>
+          )}
         </div>
 
-        {formError && <p className={styles.error}>{formError}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
         <Button
           accent
           type="submit"
           className={styles.submitBtn}
-          disabled={buttonDisabled}
+          disabled={
+            !form.username ||
+            !form.password ||
+            !form.passwordConfirmation ||
+            loading ||
+            errors.username ||
+            errors.password ||
+            errors.passwordConfirmation
+          }
           loading={loading}
         >
           Sign Up
@@ -109,9 +170,9 @@ const SignUp = () => {
           </p>
           <Divider />
           <p className={styles.authSwitch}>
-            <span className={styles.text}>Continue as guest?</span>{' '}
+            <span className={styles.text}>Just exploring?</span>{' '}
             <Link to="/" className={styles.linkText}>
-              Go to home
+              Try as guest
             </Link>
           </p>
         </footer>

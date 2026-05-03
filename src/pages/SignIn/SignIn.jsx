@@ -83,9 +83,9 @@ const SignIn = () => {
           </p>
           <Divider />
           <p className={styles.authSwitch}>
-            <span className={styles.text}>Continue as guest?</span>{' '}
+            <span className={styles.text}>Just exploring?</span>{' '}
             <Link to="/" className={styles.linkText}>
-              Go to home
+              Try as guest
             </Link>
           </p>
         </footer>
