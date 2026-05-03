@@ -3,7 +3,7 @@ import {
   checkFavourite,
   addToFavourites,
   deleteFromFavourites,
-} from '@/services/user.api';
+} from '@/api/user.api';
 import useAuth from './useAuth';
 
 export default function useFavourite(movieId) {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPreviewTrailers } from '@/services/movie.api.js';
+import { getPreviewTrailers } from '@/api/movie.api.js';
 
 export default function usePreviewTrailers(limit = 5) {
   const [trailers, setTrailers] = useState([]);

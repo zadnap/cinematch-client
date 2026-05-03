@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getMovieDetail } from '@/services/movie.api.js';
+import { getMovieDetail } from '@/api/movie.api.js';
 
 export default function useMovieDetail(id) {
   const [movie, setMovie] = useState(null);

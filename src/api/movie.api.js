@@ -1,4 +1,4 @@
-import { fetchJSON } from './fetchClient';
+import { fetchJSON } from './client';
 
 export const getUpcomingMovies = (page) =>
   fetchJSON(`/movies/upcoming?page=${page}`);

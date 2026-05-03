@@ -1,4 +1,4 @@
-import { fetchJSON } from './fetchClient';
+import { fetchJSON } from './client';
 
 export const getFavourites = (page) =>
   fetchJSON(`/user/favourites?page=${page}`);

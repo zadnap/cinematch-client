@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { searchMovie } from '@/services/movie.api.js';
+import { searchMovie } from '@/api/movie.api.js';
 
 export default function useSearchMovie(query, page) {
   const [movies, setMovies] = useState([]);

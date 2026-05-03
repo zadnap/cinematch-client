@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUpcomingMovies } from '@/services/movie.api.js';
+import { getUpcomingMovies } from '@/api/movie.api.js';
 
 export default function useUpcomingMovies(page) {
   const [movies, setMovies] = useState([]);

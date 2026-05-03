@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getFeaturedMovie } from '@/services/movie.api.js';
+import { getFeaturedMovie } from '@/api/movie.api.js';
 
 export default function useFeaturedMovie(page) {
   const [movie, setMovie] = useState(null);

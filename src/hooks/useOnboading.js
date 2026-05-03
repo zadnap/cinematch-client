@@ -1,4 +1,4 @@
-import { onboard } from '@/services/user.api.js';
+import { onboard } from '@/api/user.api.js';
 import { useState } from 'react';
 
 export default function useOnboarding() {

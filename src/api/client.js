@@ -1,4 +1,4 @@
-import { refreshToken, signOutUser } from './auth.api';
+import { refreshToken, signOutUser } from '@/api/auth.api';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -11,7 +11,10 @@ const fetchClient = async (url, options = {}) => {
   const config = {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
+      ...(options.body &&
+        !(options.body instanceof FormData) && {
+          'Content-Type': 'application/json',
+        }),
       ...(accessToken && {
         Authorization: `Bearer ${accessToken}`,
       }),
@@ -33,8 +36,9 @@ const fetchClient = async (url, options = {}) => {
       }
 
       await refreshPromise;
-    } catch {
+    } catch (err) {
       signOutUser();
+      throw err;
     } finally {
       isRefreshing = false;
       refreshPromise = null;
@@ -44,7 +48,7 @@ const fetchClient = async (url, options = {}) => {
 
     if (!newAccessToken) {
       signOutUser();
-      return;
+      throw new Error('Session expired');
     }
 
     response = await fetch(`${API_URL}${url}`, {
@@ -61,17 +65,16 @@ const fetchClient = async (url, options = {}) => {
 
 export const fetchJSON = async (url, options = {}) => {
   const res = await fetchClient(url, options);
+  const json = await res.json().catch(() => null);
 
-  let data = null;
-  try {
-    data = await res.json();
-  } catch {
-    data = null;
+  if (!res.ok || json?.success === false) {
+    throw {
+      message: json?.error?.message || 'Request failed',
+      code: json?.error?.code,
+      status: res.status,
+      data: json,
+    };
   }
 
-  if (!res.ok || (data && data.success === false)) {
-    throw new Error(data?.message || 'Request failed');
-  }
-
-  return data;
+  return json.data;
 };

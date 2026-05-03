@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getTrendingMovies } from '@/services/movie.api.js';
+import { getTrendingMovies } from '@/api/movie.api.js';
 
 export default function useTrendingMovies(page) {
   const [movies, setMovies] = useState([]);

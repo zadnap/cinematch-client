@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllGenres } from '@/services/movie.api.js';
+import { getAllGenres } from '@/api/movie.api.js';
 
 export default function useGenres() {
   const [genres, setGenres] = useState([]);

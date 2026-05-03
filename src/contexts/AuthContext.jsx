@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
-import { signInUser, signUpUser, signOutUser } from '@/services/auth.api';
-import { getMe } from '@/services/user.api';
+import { signInUser, signUpUser, signOutUser } from '@/api/auth.api';
+import { getMe } from '@/api/user.api';
 
 const AuthContext = createContext();
 
@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
 
       try {
         const me = await getMe();
-        setUser(me.data);
+        setUser(me);
       } catch {
         setUser(null);
       } finally {
@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
       await signInUser(data);
 
       const me = await getMe();
-      setUser(me.data);
+      setUser(me);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -69,7 +69,7 @@ const AuthProvider = ({ children }) => {
 
   const refreshUser = async () => {
     const me = await getMe();
-    setUser(me.data);
+    setUser(me);
   };
 
   return (
