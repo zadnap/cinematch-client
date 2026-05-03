@@ -23,7 +23,7 @@ export default function useFavourite(movieId) {
       try {
         setInitialLoading(true);
         const data = await checkFavourite(movieId);
-        setIsFavourite(data.isFavourite);
+        setIsFavourite(data.is_favourite);
       } catch (err) {
         console.error(err);
       } finally {

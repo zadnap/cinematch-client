@@ -12,11 +12,8 @@ export const addToFavourites = (movieId) =>
   });
 
 export const deleteFromFavourites = (movieId) =>
-  fetchJSON(`/user/favourites`, {
+  fetchJSON(`/user/favourites/${movieId}`, {
     method: 'DELETE',
-    body: JSON.stringify({
-      movie_id: movieId,
-    }),
   });
 
 export const checkFavourite = (movieId) =>
