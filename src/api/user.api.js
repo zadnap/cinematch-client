@@ -3,13 +3,14 @@ import { fetchJSON } from './client';
 export const getFavourites = (page) =>
   fetchJSON(`/user/favourites?page=${page}`);
 
-export const addToFavourites = (movieId) =>
+export const addToFavourites = (movie) => {
   fetchJSON(`/user/favourites`, {
     method: 'POST',
     body: JSON.stringify({
-      movie_id: movieId,
+      movie,
     }),
   });
+};
 
 export const deleteFromFavourites = (movieId) =>
   fetchJSON(`/user/favourites/${movieId}`, {

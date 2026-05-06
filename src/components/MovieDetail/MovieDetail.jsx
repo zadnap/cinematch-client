@@ -30,7 +30,7 @@ function MovieDetail({ movie }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { user } = useAuth();
   const { isFavourite, loading, initialLoading, toggleFavourite } =
-    useFavourite(id);
+    useFavourite({ id, title, genres });
 
   return (
     <article

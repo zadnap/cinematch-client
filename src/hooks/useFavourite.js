@@ -6,7 +6,7 @@ import {
 } from '@/api/user.api';
 import useAuth from './useAuth';
 
-export default function useFavourite(movieId) {
+export default function useFavourite({ id, title, genres }) {
   const { user } = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ export default function useFavourite(movieId) {
 
       try {
         setInitialLoading(true);
-        const data = await checkFavourite(movieId);
+        const data = await checkFavourite(id);
         setIsFavourite(data.is_favourite);
       } catch (err) {
         console.error(err);
@@ -31,8 +31,8 @@ export default function useFavourite(movieId) {
       }
     };
 
-    if (movieId) fetchFavourite();
-  }, [movieId, user]);
+    if (id) fetchFavourite();
+  }, [id, user]);
 
   const toggleFavourite = useCallback(async () => {
     if (!user) return;
@@ -41,10 +41,10 @@ export default function useFavourite(movieId) {
       setLoading(true);
 
       if (isFavourite) {
-        await deleteFromFavourites(movieId);
+        await deleteFromFavourites(id);
         setIsFavourite(false);
       } else {
-        await addToFavourites(movieId);
+        await addToFavourites({ id, title, genres });
         setIsFavourite(true);
       }
     } catch (err) {
@@ -52,7 +52,7 @@ export default function useFavourite(movieId) {
     } finally {
       setLoading(false);
     }
-  }, [movieId, isFavourite, user]);
+  }, [id, title, genres, isFavourite, user]);
 
   return {
     isFavourite,
