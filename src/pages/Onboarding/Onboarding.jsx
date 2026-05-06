@@ -28,10 +28,16 @@ const Onboarding = () => {
     );
   };
 
-  const toggleMovie = (id) => {
-    setSelectedMovies((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
+  const toggleMovie = (movie) => {
+    setSelectedMovies((prev) => {
+      const exists = prev.some((m) => m.id === movie.id);
+
+      if (exists) {
+        return prev.filter((m) => m.id !== movie.id);
+      }
+
+      return [...prev, movie];
+    });
   };
 
   const handleFinish = async () => {

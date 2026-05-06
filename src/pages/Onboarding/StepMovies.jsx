@@ -20,8 +20,12 @@ const StepMovies = ({ selectedGenres, selectedMovies, onToggle }) => {
         movies.map((movie) => (
           <div
             key={movie.id}
-            className={`${styles.movieCard} ${selectedMovies.includes(movie.id) ? styles.selected : ''}`}
-            onClick={() => onToggle(movie.id)}
+            className={`${styles.movieCard} ${
+              selectedMovies.some((m) => m.id === movie.id)
+                ? styles.selected
+                : ''
+            }`}
+            onClick={() => onToggle({ id: movie.id, genres: movie.genres })}
           >
             <img src={movie.posterSrc} alt={movie.title} />
             <span className={styles.srOnly}>{movie.title}</span>
