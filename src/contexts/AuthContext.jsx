@@ -53,8 +53,10 @@ const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       await signUpUser(data);
+      return { success: true };
     } catch (err) {
       setError(err.message);
+      return { success: false, error: err.message };
     } finally {
       setLoading(false);
     }

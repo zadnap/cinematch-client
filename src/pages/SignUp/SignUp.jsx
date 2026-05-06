@@ -72,12 +72,14 @@ const SignUp = () => {
 
     if (usernameError || passwordError || confirmError) return;
 
-    await signUp(form);
-    navigate('/auth/sign-in', {
-      state: {
-        message: 'Account created successfully, you can sign in now',
-      },
-    });
+    const res = await signUp(form);
+    if (res.success) {
+      navigate('/auth/sign-in', {
+        state: {
+          message: 'Account created successfully, you can sign in now',
+        },
+      });
+    }
   };
 
   const handleBlur = (e) => {
