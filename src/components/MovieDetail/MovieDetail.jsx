@@ -14,6 +14,7 @@ function MovieDetail({ movie }) {
   const {
     id,
     title,
+    year,
     posterSrc,
     backdropSrc,
     certification,
@@ -30,7 +31,7 @@ function MovieDetail({ movie }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { user } = useAuth();
   const { isFavourite, loading, initialLoading, toggleFavourite } =
-    useFavourite({ id, title, genres });
+    useFavourite({ id, title: `${title} (${year})`, genres });
 
   return (
     <article
