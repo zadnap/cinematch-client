@@ -20,3 +20,5 @@ export const getFeaturedMovie = () => fetchJSON(`/movies/featured`);
 
 export const searchMovie = (query = '', page) =>
   fetchJSON(`/movies/search?query=${encodeURIComponent(query)}&page=${page}`);
+
+export const getForYou = (page) => fetchJSON(`/movies/recommend?page=${page}`);

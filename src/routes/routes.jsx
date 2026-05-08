@@ -8,6 +8,7 @@ import Search from '../pages/Search/Search';
 import Error from '../pages/Error/Error';
 import SignIn from '../pages/SignIn/SignIn';
 import SignUp from '../pages/SignUp/SignUp';
+import ForYou from '../pages/ForYou/ForYou';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import AuthLayout from '../layouts/AuthLayout/AuthLayout';
 import { Navigate } from 'react-router-dom';
@@ -35,6 +36,7 @@ const routes = [
           { path: 'trending', element: <Trending /> },
           { path: 'favourites', element: <Favourites /> },
           { path: 'search', element: <Search /> },
+          { path: 'for-you', element: <ForYou /> },
         ],
       },
       {

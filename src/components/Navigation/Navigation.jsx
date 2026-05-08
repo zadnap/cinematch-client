@@ -5,6 +5,7 @@ import {
   faHeart,
   faRightToBracket,
   faSignOut,
+  faStar,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import NavItem from '../NavItem/NavItem';
@@ -46,6 +47,11 @@ function Navigation({ isOnTablet, isOpenNav, setIsOpenNav }) {
       title: 'Home',
     },
     {
+      to: '/for-you',
+      icon: faStar,
+      title: 'For You',
+    },
+    {
       to: '/favourites',
       icon: faHeart,
       title: 'Favourites',
@@ -63,6 +69,7 @@ function Navigation({ isOnTablet, isOpenNav, setIsOpenNav }) {
   ];
   const filteredItems = topItems.filter((item) => {
     if (item.to === '/favourites' && !user) return false;
+    if (item.to === '/for-you' && !user) return false;
     return true;
   });
 
