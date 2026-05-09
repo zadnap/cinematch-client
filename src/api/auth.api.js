@@ -1,8 +1,12 @@
 import { fetchJSON } from './client';
 
 export const refreshToken = async () => {
+  const refreshToken = localStorage.getItem('refresh_token');
   const data = await fetchJSON('/auth/refresh', {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${refreshToken}`,
+    },
   });
 
   localStorage.setItem('access_token', data.access_token);
