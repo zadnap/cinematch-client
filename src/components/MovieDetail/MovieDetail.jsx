@@ -31,7 +31,11 @@ function MovieDetail({ movie }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { user } = useAuth();
   const { isFavourite, loading, initialLoading, toggleFavourite } =
-    useFavourite({ id, title: `${title} (${year})`, genres });
+    useFavourite({
+      id,
+      title: `${title} (${year})`,
+      genres: genres.map((genre) => genre.id),
+    });
 
   return (
     <article
