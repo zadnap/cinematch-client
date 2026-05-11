@@ -33,7 +33,8 @@ function MovieDetail({ movie }) {
   const { isFavourite, loading, initialLoading, toggleFavourite } =
     useFavourite({
       id,
-      title: `${title} (${year})`,
+      title,
+      year,
       genres: genres.map((genre) => genre.id),
     });
 

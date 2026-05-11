@@ -6,7 +6,7 @@ import {
 } from '@/api/user.api';
 import useAuth from './useAuth';
 
-export default function useFavourite({ id, title, genres }) {
+export default function useFavourite({ id, title, genres, year }) {
   const { user } = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -44,7 +44,7 @@ export default function useFavourite({ id, title, genres }) {
         await deleteFromFavourites(id);
         setIsFavourite(false);
       } else {
-        await addToFavourites({ id, title, genres });
+        await addToFavourites({ id, title, genres, year });
         setIsFavourite(true);
       }
     } catch (err) {
@@ -52,7 +52,7 @@ export default function useFavourite({ id, title, genres }) {
     } finally {
       setLoading(false);
     }
-  }, [id, title, genres, isFavourite, user]);
+  }, [id, title, genres, year, isFavourite, user]);
 
   return {
     isFavourite,

@@ -29,6 +29,7 @@ const StepMovies = ({ selectedGenres, selectedMovies, onToggle }) => {
               onToggle({
                 id: movie.id,
                 title: movie.title,
+                year: movie.year,
                 genres: movie.genres,
               })
             }
