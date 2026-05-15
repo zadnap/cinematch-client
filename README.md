@@ -2,14 +2,14 @@
 
 ### Overview
 
-- A shopping cart web application (used to be) built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-react-new-shopping-cart)
-  curriculum. Now it serves as the client for [CineMatch API](https://github.com/zadnap/cinematch-api).
+- A movie recommendation web application (used to be) built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-react-new-shopping-cart)
+  curriculum. Now it serves as the client for [CineMatch API](https://github.com/zadnap/cinematch-api) and uses [CineMatch ML Service](https://github.com/zadnap/cinematch-ml-service) as its recommendation core.
 - This project focuses on practicing React, React Router, and state management by creating a simple e-commerce experience with product browsing and cart functionality.
-- See the project in action: [CineMatch](https://cinematch-client-xi-liart.vercel.app/).
+- See the project in action: [CineMatch](https://cinematch-client.vercel.app).
 
 ### Features
 
-- Browse a list of products with images and details.
+- Browse a list of movies with poster and details.
 - Responsive design for desktop and mobile.
 - Client-side routing with React Router.
 
@@ -38,7 +38,14 @@ cd cinematch-client
 npm install
 ```
 
-3. Run the development server:
+3. Create an .env file with content
+
+```
+VITE_API_URL=http://127.0.0.1:5000
+VITE_ENABLE_ANALYTICS=false
+```
+
+4. Run the development server:
 
 ```
 npm run dev
@@ -61,6 +68,14 @@ Through this project, I practiced:
 - Free placeholder images from [Freepik](https://www.freepik.com/).
 
 ### Screenshots
+
+- Sign-in page
+
+  ![Home screenshot](./docs/sign_in.png)
+
+- Onboarding page
+
+  ![Home screenshot](./docs/onboarding.png)
 
 - Home page
 
